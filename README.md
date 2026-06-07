@@ -57,4 +57,4 @@ This is how sequence length gets smaller after repeated merges.
 | GPT-3.5 | The lion roams in the jungle | token ids + token pieces |
 | GPT-4 | The lion roams in the jungle | token ids + token pieces |
 
-This helps you see that different model encodings can split text differently.
+This helps us see that different model encodings can split text differently.
