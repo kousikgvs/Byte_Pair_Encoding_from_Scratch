@@ -15,3 +15,46 @@
 15. Encode and decode the same sentence with GPT-3.5 tokenizer.
 16. Encode and decode the same sentence with GPT-4 tokenizer.
 17. Compare token ids and token pieces from all models.
+
+## Visual Flow (Simple)
+
+```mermaid
+flowchart TD
+	A[Raw Text] --> B[Character to Token IDs]
+	B --> C[Count Adjacent Pairs]
+	C --> D[Pick Most Frequent Pair]
+	D --> E[Create New Token ID]
+	E --> F[Replace Pair in Sequence]
+	F --> G{More Merges Left?}
+	G -- Yes --> C
+	G -- No --> H[Final IDs + Merge Rules]
+	H --> I[Check Compression Ratio]
+	I --> J[tiktoken Comparison]
+```
+
+## One Merge Example
+
+Before merge:
+
+- IDs: [65, 66, 65, 66, 67]
+- Pair (65, 66) appears 2 times
+
+Create new token ID:
+
+- New ID: 128
+
+After merge:
+
+- IDs: [128, 128, 67]
+
+This is how sequence length gets smaller after repeated merges.
+
+## Tiny Tokenization View
+
+| Model | Example Text | Output Type |
+|---|---|---|
+| GPT-2 | The lion roams in the jungle | token ids + token pieces |
+| GPT-3.5 | The lion roams in the jungle | token ids + token pieces |
+| GPT-4 | The lion roams in the jungle | token ids + token pieces |
+
+This helps you see that different model encodings can split text differently.
